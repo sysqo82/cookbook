@@ -4,11 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    s3.bucket.name: "%env(default::AWS_S3_BUCKET)%"
-    s3.bucket.region: "%env(default::AWS_S3_REGION)%"
-    # ponytail: fallbacks so AWS SDK and Flysystem construct without error when S3 is unconfigured
-    s3.fallback.region: 'us-east-1'
-    s3.fallback.bucket: 'unconfigured'
+    storage.public_base_path: '/uploads/images'
     app.goodfood_api_url_format: "%env(GOODFOOD_API_URL_FORMAT)%"
 
 services:
@@ -21,16 +17,6 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
-
-    aws.client:
-        class: Aws\S3\S3Client
-        lazy: true
-        arguments:
-            -   version: 'latest'
-                region: '%env(default:s3.fallback.region:AWS_S3_REGION)%'
-                credentials:
-                    key: '%env(default::AWS_S3_KEY)%'
-                    secret: '%env(default::AWS_S3_SECRET)%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

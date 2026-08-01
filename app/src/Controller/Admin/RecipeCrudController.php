@@ -24,7 +24,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGeneratorInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
@@ -58,14 +57,9 @@ class RecipeCrudController extends AbstractCrudController
             ImageField::new('image')
                 ->setUploadDir('public/uploads/images')
                 ->setBasePath($this->storageUrlResolver->getBaseUrl())
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setRequired(false)
-                ->setLabel('Image')
-                ->setFormTypeOption('upload_new', function ($uploadedFile) {
-                    if ($uploadedFile instanceof UploadedFile) {
-                        return $this->imageUploader->upload($uploadedFile);
-                    }
-                    return null;
-                }),
+                ->setLabel('Image'),
             BooleanField::new('mastered'),
             ChoiceField::new('course')
                 ->setChoices(array_combine(

@@ -5,7 +5,8 @@
 {% block body %}
     <div class="container bg-dark">
         <h1 class="text-center text-light">Cookbook</h1>
-        <div class="text-end mb-3">
+        <div class="d-flex justify-content-between justify-content-md-end align-items-center gap-md-2 mb-3">
+            <a href="{{ path('admin') }}" class="btn btn-outline-light opacity-0" aria-label="Admin">Admin</a>
             <a href="{{ path('shopping_list_index') }}" class="btn btn-outline-light">View Shopping List</a>
         </div>
         <div class="row row row-cols-1 row-cols-md-3 g-4">

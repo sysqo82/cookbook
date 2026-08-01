@@ -1,5 +1,5 @@
 {% if field.value %}
-    <img src="{{ field.value starts with 'http' ? field.value : 'https://your-bucket.s3.amazonaws.com/' ~ field.value }}" alt="" style="max-height: 150px; display:block; margin-bottom:10px;">
+    <img src="{{ field.value|aws_url }}" alt="" style="max-height: 150px; display:block; margin-bottom:10px;">
 {% endif %}
 
 {{ form_widget(field.form) }}
