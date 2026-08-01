@@ -24,6 +24,7 @@
         "symfony/framework-bundle": "^7.4.14",
         "symfony/http-client": "^7.4.14",
         "symfony/messenger": "^7.4.14",
+        "symfony/rate-limiter": "^7.4.14",
         "symfony/runtime": "^7.4.14",
         "symfony/serializer": "^7.4.14",
         "symfony/ux-autocomplete": "^3.3",

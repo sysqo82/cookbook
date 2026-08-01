@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Login{% endblock %}
+
+{% block body %}
+    <main class="container py-5 admin-login" style="max-width: 460px;">
+        <h1 class="h3 mb-4">Admin Login</h1>
+
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
+
+        <form method="post" autocomplete="off">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="_username"
+                    class="form-control"
+                    value="{{ last_username }}"
+                    required
+                    autofocus
+                >
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="_password"
+                    class="form-control"
+                    required
+                >
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button class="btn btn-primary" type="submit">Sign in</button>
+        </form>
+    </main>
+{% endblock %}
