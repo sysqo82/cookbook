@@ -1,0 +1,37 @@
+{% extends '@!EasyAdmin/layout.html.twig' %}
+
+{% block responsive_header %}
+    <twig:ea:Button type="button" isInvisible icon="internal:menu-bars" id="navigation-toggler" aria-label="Toggle navigation"></twig:ea:Button>
+
+    <div id="responsive-header-logo" class="text-truncate ms-auto">
+        {% block responsive_header_logo %}
+            <a class="responsive-logo" title="{{ ea.dashboardTitle|striptags }}" href="{{ path(ea.dashboardRouteName) }}">
+                {{ ea.dashboardTitle|raw }}
+            </a>
+        {% endblock responsive_header_logo %}
+    </div>
+
+    <a href="{{ path('home') }}" class="btn btn-primary btn-sm d-md-none ms-2 d-inline-flex align-items-center justify-content-center">Back</a>
+
+    <twig:ea:ActionMenu class="ms-2 user-menu-wrapper {{ is_granted(impersonator_permission) ? 'user-is-impersonated' }}">
+        <twig:ea:ActionMenu:Button class="user-details" data-bs-offset="0,5" withoutDropdownToggleMarker>
+            {% if ea.userMenu.avatarDisplayed %}
+                {{ user_menu_avatar }}
+            {% else %}
+                <twig:ea:Icon class="user-avatar" name="{{ ea.user is not null ? 'internal:user' : 'internal:user-xmark' }}" />
+            {% endif %}
+        </twig:ea:ActionMenu:Button>
+        <twig:ea:ActionMenu:Overlay>
+            {{ user_menu_dropdown }}
+        </twig:ea:ActionMenu:Overlay>
+    </twig:ea:ActionMenu>
+
+    {{ settings_dropdown }}
+{% endblock responsive_header %}
+
+{% block header_custom_menu_wrapper %}
+    <div class="navbar-custom-menu d-flex align-items-center gap-2">
+        <a href="{{ path('home') }}" class="btn btn-primary btn-sm d-none d-md-inline-flex align-items-center justify-content-center">Back to Front End</a>
+        {{ parent() }}
+    </div>
+{% endblock header_custom_menu_wrapper %}

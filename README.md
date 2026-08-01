@@ -36,6 +36,12 @@ A personal recipe management application built with Symfony 7 and PHP 8.5. It al
 
 3. Open [http://localhost:10000](http://localhost:10000) in your browser.
 
+### Cloudflare Tunnel (remote access)
+
+Remote access for `cookbook.lockpc.co.uk` is managed by the `lock-pc-local` repository's `cloudflared` service.
+
+This repository only serves the app locally on `http://localhost:10000`.
+
 ### Admin interface
 
 The EasyAdmin interface is available at `/admin`.

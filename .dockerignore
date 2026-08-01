@@ -9,6 +9,7 @@
 !/app/migrations/
 !/app/package*.json
 !/app/public/
+/app/public/uploads/
 !/app/src/
 !/app/symfony.lock
 !/app/templates/

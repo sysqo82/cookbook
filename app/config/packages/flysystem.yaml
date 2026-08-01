@@ -2,8 +2,5 @@
 flysystem:
     storages:
         active.storage:
-            adapter: 'aws'
-            options:
-                client: 'aws.client'
-                bucket: '%env(default:s3.fallback.bucket:AWS_S3_BUCKET)%'
-                prefix: 'images'
+            local:
+                directory: '%kernel.project_dir%/public/uploads/images'

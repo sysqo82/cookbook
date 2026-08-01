@@ -7,7 +7,7 @@ if [ "${1#-}" != "$1" ]; then
 fi
 
 if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
-    composer install --prefer-dist --no-progress --no-suggest -o --no-interaction --ignore-platform-reqs
+    composer install --prefer-dist --no-progress -o --no-interaction --ignore-platform-reqs
 
 #    ./bin/console assets:install
     echo "Waiting for db to be ready..."
@@ -17,17 +17,16 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
         ./bin/console doctrine:migrations:migrate --no-interaction || echo "Warning: failed to run schema migration"
 fi
 
-# Define the directory path
-DIR="public/uploads/images"
+# Ensure upload directories exist and are writable by php-fpm user
+UPLOAD_ROOT="public/uploads"
+UPLOAD_IMAGES_DIR="${UPLOAD_ROOT}/images"
 
-# Check if the directory exists
-if [ ! -d "$DIR" ]; then
-    mkdir -p "$DIR"
-    chmod 777 "$DIR"
-    echo "Directory '$DIR' created with permissions 777."
-else
-    echo "Directory '$DIR' already exists."
-fi
+mkdir -p "$UPLOAD_IMAGES_DIR"
+
+# Fix ownership/permissions on every boot so edit forms can write uploads
+chown -R www-data:www-data "$UPLOAD_ROOT"
+find "$UPLOAD_ROOT" -type d -exec chmod 775 {} \;
+find "$UPLOAD_ROOT" -type f -exec chmod 664 {} \;
 
 # ponytail: worker containers skip nginx; CONTAINER_ROLE=worker to opt out
 if [ "${CONTAINER_ROLE:-app}" = "app" ]; then

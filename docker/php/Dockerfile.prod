@@ -35,7 +35,7 @@ RUN set -xe; \
     mkdir ~/.composer;
 
 COPY app /var/www/html
-RUN composer install --prefer-dist --no-progress --no-suggest -o --no-interaction --ignore-platform-reqs
+RUN composer install --prefer-dist --no-progress -o --no-interaction --ignore-platform-reqs
 
 COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
